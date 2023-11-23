@@ -47,6 +47,31 @@ Palavra *criar_palavra(const char *palavra, int pagina_num) {
     return nova_palavra;
 }
 
+Pagina *rot_esq_pag(Pagina *y) {
+    Pagina *x = y->dir;
+    Pagina *T2 = x->esq;
+
+    x->esq = y;
+    y->dir = T2;
+
+    y->altura = max(altura_pag(y->esq), altura_pag(y->dir)) + 1;
+    x->altura = max(altura_pag(x->esq), altura_pag(x->dir)) + 1;
+
+    return x;
+}
+
+Pagina *rot_dir_pag(Pagina *x) {
+    Pagina *y = x->esq;
+    Pagina *T2 = y->dir;
+
+    y->dir = x;
+    x->esq = T2;
+
+    x->altura = max(altura_pag(x->esq), altura_pag(x->dir)) + 1;
+    y->altura = max(altura_pag(y->esq), altura_pag(y->dir)) + 1;
+
+    return y;
+}
 
 Pagina *inserir_pagina(Pagina *pagina_raiz, int pagina_num) {
     if (pagina_raiz == nullptr)
